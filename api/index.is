@@ -1,0 +1,11 @@
+const TARGET = "https://省二校园墙墙.top";
+export default async function handler(req) {
+  const url = new URL(req.url);
+  const target = new URL(TARGET);
+  url.hostname = target.hostname;
+  url.protocol = target.protocol;
+  const newReq = new Request(url, req);
+  newReq.headers.delete("host");
+  newReq.headers.set("Host", target.hostname);
+  return fetch(newReq);
+}
